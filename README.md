@@ -2,6 +2,8 @@
 
 # **Web Development Projects**
 
+</div>
+
 **Web Development Projects**: Repository showcasing different projects built using web development technologies, including React, Tailwind CSS, Next.js, and JavaScript. These projects demonstrate practical applications and implementations aimed at enhancing user experience and functionality. Still in progress to add more interesting pages!
 
 ## Projects Available
