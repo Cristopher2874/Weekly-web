@@ -8,7 +8,8 @@
 
 ## Projects Available
 
-- **[Fake Store API](https://github.com/Cristopher2874/Weekly-web/tree/main/API-fake-store):** A dynamic web application that integrates with a fake store API to showcase product listings and simulate a shopping experience.
+- **[Fake Store API source code](https://github.com/Cristopher2874/Weekly-web/tree/main/API-fake-store):** A dynamic web application that integrates with a fake store API to showcase product listings and simulate a shopping experience.
+- **[Project web deploy](https://api-store-test.netlify.app/)**
 
 - **[Login Page](https://github.com/Cristopher2874/Weekly-web/tree/main/LogInPage):** A responsive login page crafted with Tailwind CSS and React, demonstrating modern UI/UX practices.
 
