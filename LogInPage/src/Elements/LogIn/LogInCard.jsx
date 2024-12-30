@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const LoginCard = () => {
     const navigate = useNavigate();
     
-    const handleLogin = (route) => {
-        navigate(`/${route}`);
+    const handleLogin = (event, route) => {
+        event.preventDefault();
+        navigate(route);
     };
 
     const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +16,7 @@ const LoginCard = () => {
     };
 
     return (
-            <form onSubmit={() => handleLogin("home")} className="w-80 m-auto p-6 border-white rounded-lg bg-[#f9f9f9] shadow-black shadow-md">
+            <form onSubmit={(event) => {handleLogin(event,'/home')}} className="w-80 m-auto p-6 border-white rounded-lg bg-[#f9f9f9] shadow-black shadow-md">
                 <h2 className='mb-3 text-black justify-center text-xl'>Log In</h2>
                 <div className="mb-4">
                     <label htmlFor="username" className="flex justify-start items-start mb-2 text-black">User:</label>
