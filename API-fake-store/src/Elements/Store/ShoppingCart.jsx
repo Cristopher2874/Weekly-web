@@ -1,9 +1,12 @@
-import { LayoutContext } from "../../Layout/LayoutStore";
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useStore } from "@/ZustandStore/store";
 
 const ShoppingCart = () => {
-    const { cart, setCart } = useContext(LayoutContext);
+    const ZclearCart = useStore((state) => state.clearCart);
+    const setCartItems = useStore((state) => state.setCartItems);
+    const ZcartTotal = useStore((state) => state.getTotalPrice());
+    const Zcart = useStore((state) => state.items);
 
     function getImages(product) {
         const response = product.images[0];
@@ -16,20 +19,19 @@ const ShoppingCart = () => {
     }
 
     function removeFromCart(itemId) {
-        setCart(prevCart => prevCart.filter(item => item.id !== itemId));
-        if (cart.length === 1 || cart.length === 0) {
-            clearCart()
+        setCartItems(Zcart.filter(item => item.id !== itemId));
+        if (Zcart.length === 1 || Zcart.length === 0) {
+            ZclearCart()
         }
     }
 
     function clearCart() {
-        setCart([]);
-        localStorage.removeItem('cart')
+        ZclearCart();
     }
 
     function changeQuantity(change, id) {
         if (change === 1) {
-            const newCart = cart.map(product => {
+            const newCart = Zcart.map(product => {
                 if (product.id === id && product.quantity > 1) {
                     return {
                         ...product,
@@ -38,9 +40,9 @@ const ShoppingCart = () => {
                 }
                 return product
             })
-            setCart(newCart);
+            setCartItems(newCart);
         } else {
-            const newCart = cart.map(product => {
+            const newCart = Zcart.map(product => {
                 if (product.id === id) {
                     return {
                         ...product,
@@ -49,19 +51,18 @@ const ShoppingCart = () => {
                 }
                 return product
             })
-            setCart(newCart);
+            setCartItems(newCart);
         }
     }
 
-    const cartEmpty = useMemo(() => cart.length === 0, [cart]);
-    const cartTotal = useMemo(() => cart.reduce((total, product) => total + (product.quantity * product.price), 0), [cart]);
+    const cartEmpty = useMemo(() => Zcart.length === 0, [Zcart]);
 
     return (
         <div className="flex flex-col p-5 items-start bg-[#f3f1f2ff] min-h-full text-black overflow-auto
             box-border w-4/5 justify-start">
             <section className="flex flex-col mt-4 bg-white p-3 rounded-lg shadow-md w-full justify-between items-start">
                 <h2 className="mb-2 text-black text-2xl">Shopping Cart</h2>
-                <p className="justify-start">Total to pay: ${cartTotal}</p>
+                <p className="justify-start">Total to pay: ${ZcartTotal}</p>
                 <a className="cursor-pointer hover:text-black" onClick={() => clearCart()}>Clear all products</a>
                 <hr className="border-t-[#888b8d] mb-6 w-full mt-3" />
                 <div className="w-full">
@@ -71,7 +72,7 @@ const ShoppingCart = () => {
                             <Link to="/" className="p-2 mt-3 bg-[#811d2eff] text-[#f3f1f2ff] rounded-md hover:bg-[#f3b61fff]">Buy new items</Link>
                         </>
                     ) : (
-                        cart.map((product) => {
+                        Zcart.map((product) => {
                             return (
                                 <div key={product.id}>
                                     <div className="flex flex-row justify-start items-center bg-white border-[#ddd] border rounded-md p-2 shadow-sm mb-3 transition transform duration-200 hover:translate-y-[-5px] hover:shadow-md">

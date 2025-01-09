@@ -1,8 +1,11 @@
-import { useContext } from "react";
-import { LayoutContext } from "../../Layout/LayoutStore";
+import { useStore } from "@/ZustandStore/store";
+import { useProductStore } from "@/ZustandStore/data.store";
 
 const ProductBase = () => {
-    const { data, addToCart, searchTerm, selectedCategory } = useContext(LayoutContext);
+    const addItem = useStore((state) => state.addItem);
+    const Zdata = useProductStore(state => state.data);
+    const Zcategory = useProductStore(state => state.category);
+    const ZsearchTerm = useProductStore(state => state.searchTerm);
 
     function getImages(product) {
         const response = product.images[0];
@@ -14,10 +17,14 @@ const ProductBase = () => {
         }
     }
 
-    const filteredProducts = data.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedCategory === '' || product.category.name === selectedCategory)
+    const filteredProducts = Zdata.filter(product =>
+        product.title.toLowerCase().includes(ZsearchTerm.toLowerCase()) &&
+        (Zcategory === '' || product.category.name === Zcategory)
     )
+
+    const handleAddToCart = (product) => {
+        addItem(product);
+    };
 
     return (
         <div className="flex flex-row p-5 items-start bg-[#f3f1f2ff] min-h-full text-black overflow-auto
@@ -34,7 +41,7 @@ const ProductBase = () => {
                             <p className="test-[#555] text-sm p-3">Category: {product.category.name}</p>
                             <button
                                 className="p-2 mt-3 bg-[#811d2eff] text-[#f3f1f2ff] hover:bg-[#f3b61fff]"
-                                onClick={() => addToCart(product)}
+                                onClick={() => handleAddToCart(product)}
                             >
                                 Add to card
                             </button>

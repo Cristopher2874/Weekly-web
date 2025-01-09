@@ -16,6 +16,10 @@ const App = createBrowserRouter([
       {
         path:"cart",
         element: <ShoppingCart />
+      },
+      {
+        path:"products",
+        element: <ProductBase />
       }
     ]
   }

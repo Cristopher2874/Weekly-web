@@ -1,10 +1,10 @@
-import { createContext, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 import axios from 'axios'
 import reactLogo from "/assets/vite.svg";
 import SearchBar from "../Elements/Store/SearchBar";
-
-export const LayoutContext = createContext();
+import { useProductStore } from "@/ZustandStore/data.store";
+import { useStore } from '@/ZustandStore/store';
 
 async function getProducts() { //async function to get the products from the API
     try {
@@ -19,18 +19,16 @@ async function getProducts() { //async function to get the products from the API
 }
 
 const LayoutStore = () => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState('')
-    const [categories, setCategories] = useState([])
-    const [data, setData] = useState([]);
-    const [cart, setCart] = useState([]);
+    const ZsetData = useProductStore(state => state.setData)
+    const ZsetCategories = useProductStore(state => state.setCategories)
+    const totalItems = useStore(state => state.getTotalItems())
 
     const fetchData = async () => {
         try {
             const products = await getProducts()
-            setData(products)
+            ZsetData(products)
             const uniqueCategories = [...new Set(products.map(product => product.category.name))]
-            setCategories(uniqueCategories)
+            ZsetCategories(uniqueCategories)
         } catch (error) {
             console.error(error)
         }
@@ -40,84 +38,42 @@ const LayoutStore = () => {
         fetchData()
     }, []);
 
-    useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('cart')) ?? []
-        setCart(data)
-    }, [])
-
-    useEffect(() => {
-        if (cart.length > 0) {
-            localStorage.setItem('cart', JSON.stringify(cart))
-        }
-    }, [cart])
-
-    function addToCart(item) {
-        const itemExists = cart.findIndex(cartItem => cartItem.id === item.id);
-
-        if (itemExists >= 0) {
-            if (cart[itemExists].quantity >= 10) return
-            const updatedCartItem = [...cart];
-            updatedCartItem[itemExists].quantity++;
-            setCart(updatedCartItem);
-        } else {
-            item.quantity = 1;
-            setCart(prevCart => [...prevCart, item]);
-        }
-    }
-
     return (
-        <LayoutContext.Provider value={{
-            searchTerm, setSearchTerm,
-            selectedCategory, setSelectedCategory,
-            categories, setCategories,
-            data, setData, cart, setCart,
-            addToCart
-        }}>
-            <div className="flex flex-col h-screen">
-                <header className="flex justify-evenly items-center p-5 bg-[#27223aff]">
-                    <img className="flex-initial mr-3" src={reactLogo}></img>
+        <div className="flex flex-col h-screen">
+            <header className="flex justify-evenly items-center p-5 bg-[#27223aff]">
+                <img className="flex-initial mr-3" src={reactLogo}></img>
 
-                    <SearchBar />
+                <SearchBar />
 
-                    <Link to="/" className="text-[#f3f1f2ff] px-4">
-                        <i className="fas fa-user-circle"></i>
-                        <p>My Profile</p>
-                    </Link>
-                    <Link to="/cart" className="text-[#f3f1f2ff]">
-                        <i className="fas fa-wallet"></i>
-                        <p>Cart</p>
-                    </Link>
-                </header>
-                <nav className="flex justify-row items-auto p-1 w-full bg-[#463d68]">
-                    <ul className="flex flex-row justify-around items-center w-full">
-                        <li className="p-2"><Link to="/" className="text-[#f3f1f2ff]">Home</Link></li>
-                        <li className="p-2"><Link to="#products" className="text-[#f3f1f2ff]">Season</Link></li>
-                        <li className="p-2"><Link to="#deals" className="text-[#f3f1f2ff]">Offers</Link></li>
-                        <li className="p-2"><Link to="#contact" className="text-[#f3f1f2ff]">Contact</Link></li>
-                    </ul>
-                </nav>
-                <main className="bg-[#f3f1f2ff] flex-grow flex-1 justify-center items-center">
-                    <div className="flex justify-center items-center w-full h-full">
+                <Link to="/" className="text-[#f3f1f2ff] px-4">
+                    <i className="fas fa-user-circle"></i>
+                    <p>My Profile</p>
+                </Link>
+                <Link to="/cart" className="text-[#f3f1f2ff]">
+                    <i className="fas fa-wallet"></i>
+                    <p>Cart {totalItems}</p>
+                </Link>
+            </header>
+            <nav className="flex justify-row items-auto p-1 w-full bg-[#463d68]">
+                <ul className="flex flex-row justify-around items-center w-full">
+                    <li className="p-2"><Link to="/" className="text-[#f3f1f2ff]">Home</Link></li>
+                    <li className="p-2"><Link to="#products" className="text-[#f3f1f2ff]">Season</Link></li>
+                    <li className="p-2"><Link to="#deals" className="text-[#f3f1f2ff]">Offers</Link></li>
+                    <li className="p-2"><Link to="#contact" className="text-[#f3f1f2ff]">Contact</Link></li>
+                </ul>
+            </nav>
+            <main className="bg-[#f3f1f2ff] flex-grow flex-1 justify-center items-center">
+                <div className="flex justify-center items-center w-full h-full">
 
-                        <Outlet />
+                    <Outlet />
 
-                    </div>
-                </main>
-                <footer className="justify-center items-center w-full bg-[#27223aff] text-[#f3f1f2ff] p-2">
-                    <p>&copy; 2023 Fake API Store. All rights reserved.</p>
-                </footer>
-            </div>
-        </LayoutContext.Provider>
+                </div>
+            </main>
+            <footer className="justify-center items-center w-full bg-[#27223aff] text-[#f3f1f2ff] p-2">
+                <p>&copy; 2023 Fake API Store. All rights reserved.</p>
+            </footer>
+        </div>
     );
 };
 
 export default LayoutStore;
-
-/* CSS HEX
-/* CSS HEX
---dark-purple: #27223aff;
---uranian-blue: #a9cef4ff;
---xanthous: #f3b61fff;
---claret: #811d2eff;
---white-smoke: #f3f1f2ff;
-*/

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS HEX
+/* CSS HEX
+--dark-purple: #27223aff;
+--uranian-blue: #a9cef4ff;
+--xanthous: #f3b61fff;
+--claret: #811d2eff;
+--white-smoke: #f3f1f2ff;
+*/
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
