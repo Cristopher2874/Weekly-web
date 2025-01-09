@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import LayoutStore from "./Layout/LayoutStore";
-import ProductBase from "./Elements/Store/ProductBase";
-import ShoppingCart from "./Elements/Store/ShoppingCart";
+import LayoutStore from "@/Layout/LayoutStore";
+import ProductBase from "@/Elements/Store/ProductBase";
+import ShoppingCart from "@/Elements/Store/ShoppingCart";
+import SingleProduct from "@/Elements/Product/SingleProduct";
 import './App.css'
 
 const App = createBrowserRouter([
@@ -18,8 +19,8 @@ const App = createBrowserRouter([
         element: <ShoppingCart />
       },
       {
-        path:"products",
-        element: <ProductBase />
+        path:"product/:id",
+        element: <SingleProduct />
       }
     ]
   }

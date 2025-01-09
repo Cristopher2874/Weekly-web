@@ -3,9 +3,10 @@ import { persist } from 'zustand/middleware'
 
 export const useProductStore = create(
     persist(
-        (set) => ({
+        (set, get) => ({
             data: [],
             setData: (data) => set({ data }),
+            getSingleItem: (id) => get().data.find(item => item.id === id),
             category: '',
             setCategory: (category) => set({ category }),
             categories: [],
