@@ -1,6 +1,6 @@
 import {
-    Calendar, Home, Inbox, Search, Settings, ChevronRightCircle,
-    ChevronLeftCircle, LogOut
+    Calendar, Home, Book, Settings, ChevronRightCircle,
+    ChevronLeftCircle, LogOut, Cat
 } from "lucide-react"
 
 import {
@@ -18,27 +18,31 @@ import {
     useSidebar,
 } from "@shad/sidebar"
 
+import { Link } from "react-router-dom";
+import { useAuthStore } from "@/StateZustand/authStore";
+import { UserPopOver } from "./PopOver";
+
 // Menu items.
 const items = [
     {
         title: "Home",
-        url: "#",
+        url: "/home",
         icon: Home,
     },
     {
-        title: "Inbox",
-        url: "#",
-        icon: Inbox,
+        title: "New Patient",
+        url: "home/new-patient",
+        icon: Cat,
     },
     {
-        title: "Calendar",
-        url: "#",
+        title: "Appointments",
+        url: "home/patients",
         icon: Calendar,
     },
     {
-        title: "Search",
-        url: "#",
-        icon: Search,
+        title: "Patients",
+        url: "home/patients",
+        icon: Book,
     },
     {
         title: "Settings",
@@ -48,6 +52,8 @@ const items = [
 ]
 
 export function AppSidebar() {
+    const setUser = useAuthStore((state) => state.setUser);
+
     const { toggleSidebar, open } = useSidebar();
     return (
         <Sidebar collapsible="icon">
@@ -92,9 +98,16 @@ export function AppSidebar() {
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
-                            <LogOut className="h-5 w-5 text-gray-500" />
-                            <span className="text-gray-700">Log Out</span>
+                        <SidebarMenuButton>
+                            {open ? (
+                                <div className="flex flex-row items-center justify-start gap-3 transition-all duration-300">
+                                    <UserPopOver />
+                                </div>
+                            ) : (
+                                <div className="flex flex-row items-center justify-center transition-all duration-300">
+                                    <UserPopOver />
+                                </div>
+                            )}
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

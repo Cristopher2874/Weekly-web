@@ -30,7 +30,7 @@ const App = createBrowserRouter([
         element: <Dashboard />
       },
       {
-        path: 'data',
+        path: 'patients',
         element: <UserData />
       }
     ]

@@ -19,7 +19,7 @@ const Dashboard = () => {
     box-border w-full justify-between
   ">
       <section className="flex-2">
-        <h2 className="text-3xl">Current courses</h2>
+        <h2 className="text-3xl">Current pets</h2>
         <hr className="border-t-[#888b8d] mb-6 w-full mt-3" />
         <div className="flex flex-wrap gap-5 justify-start items-start mx-0 my-auto max-w-full box-border">
           {courses.map((course) => (

@@ -8,7 +8,7 @@ import { Outlet, Link } from "react-router-dom";
 
 const LogInLayout = () => {
     return (
-        <section className="flex flex-col h-screen overflow-auto">
+        <section className="flex flex-col h-full w-full overflow-auto min-h-screen">
             <header className="bg-black text-white flex justify-between items-center p-4 w-full">
                 <div className="flex flex-row space-x-4">
                     <Link to="/">
@@ -18,17 +18,11 @@ const LogInLayout = () => {
                     </Link>
                     <NavigationMenu>
                         <NavigationMenuList className="space-x-5">
-                            {/*<NavigationMenuItem>
-                            <NavigationMenuTrigger className="bg-black">Features</NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                                <NavigationMenuLink>Link</NavigationMenuLink>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>*/}
                             <NavigationMenuItem>
                                 <Button variant="ghost">Home</Button>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
-                                <Button variant="ghost">Features</Button>
+                                <Button variant="ghost">Appointments</Button>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
                                 <Button variant="ghost">Stories</Button>
@@ -49,19 +43,15 @@ const LogInLayout = () => {
                 </NavigationMenu>
             </header>
 
-            <main className="flex-grow flex-1 justify-center items-center bg-[url('/assets/login-back.jpg')] bg-cover bg-center">
-                <div className="flex justify-center items-center w-full h-full bg-white">
-    
-                    <Outlet />
-
-                </div>
+            <main className="flex-grow flex justify-center items-center w-full h-full bg-white">
+                <Outlet />
             </main>
 
-            <footer className="bg-black text-white flex justify-center items-center p-4">
+            <footer className="bg-black text-white flex justify-center items-center p-4 mt-auto">
                 <p>
                     <Link to="#" className="p-3">Privacy policy</Link>
                     <Link to="#" className="p-3">Code of ethics</Link>
-                    <span>&copy; 2024 InCtrl</span>
+                    <span>&copy; 2024 MyVet</span>
                 </p>
             </footer>
         </section>

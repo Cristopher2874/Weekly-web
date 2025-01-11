@@ -9,16 +9,15 @@ import { Outlet, Link } from "react-router-dom";
 
 const LayoutHome = () => {
     return (
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
             <AppSidebar />
             <main className="flex flex-col min-h-screen bg-gray-100 w-full">
-                {/*<SidebarTrigger />*/}
                 <Outlet />
             <footer className="bg-black text-white flex justify-around items-center p-4">
                 <p>
                     <Link to="#" className="p-3">Privacy policy</Link>
                     <Link to="#" className="p-3">Code of ethics</Link>
-                    <span>&copy; 2024 InCtrl</span>
+                    <span>&copy; 2024 MyVet</span>
                 </p>
                 <NavigationMenu>
                     <NavigationMenuList className="flex justify-around items-center space-x-5">

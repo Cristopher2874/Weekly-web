@@ -22,9 +22,9 @@ export const questions1 = [
     },
     {
         id: 4,
-        type: "textarea",
-        label: "Message",
-        placeholder: "Leave a message",
+        type: "text",
+        label: "Password",
+        placeholder: "Create a password",
         required: true
     },
     {
