@@ -52,7 +52,6 @@ const items = [
 ]
 
 export function AppSidebar() {
-    const setUser = useAuthStore((state) => state.setUser);
 
     const { toggleSidebar, open } = useSidebar();
     return (

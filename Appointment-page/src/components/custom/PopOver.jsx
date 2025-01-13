@@ -54,7 +54,7 @@ export function UserPopOver() {
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button
+                <div
                     variant="ghost"
                     role="combobox"
                     className="p-0 w-[14rem] ml-0 flex justify-between items-center"
@@ -67,7 +67,7 @@ export function UserPopOver() {
                         ? frameworks.find((framework) => framework.value === value)?.label
                         : "Example"}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
+                </div>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
                 <Command>
@@ -93,11 +93,9 @@ export function UserPopOver() {
                                     {framework.label}
                                 </CommandItem>
                             ))}
-                            <Link to="/">
-                                <Button onClick={setUser("")} className="w-full flex items-center bg-white gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
-                                    <LogOut className="h-5 w-5 text-gray-500" />
-                                    <span className="text-gray-700">Log Out</span>
-                                </Button>
+                            <Link to="/" className="w-full flex items-center shadow border bg-white gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
+                                <LogOut className="h-5 w-5 text-gray-500" />
+                                <span className="text-gray-700">Log Out</span>
                             </Link>
                         </CommandGroup>
                     </CommandList>

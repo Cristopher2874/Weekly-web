@@ -36,7 +36,8 @@ const LogInCard = () => {
         }
     });
 
-    function onSubmit(data) {
+    function onSubmit() {
+        setUser(form.getValues("email"));
         navigate("/home");
     }
 
@@ -66,7 +67,7 @@ const LogInCard = () => {
                                 required: "Email is required",
                                 validate: () => {
                                     if(!error){
-                                        return "Invalid email";
+                                        return "Invalid credentials";
                                     }
                                 }
                              }}
@@ -101,9 +102,13 @@ const LogInCard = () => {
                                     hasNumber: (value) => 
                                         /\d/.test(value) || "Password must contain a number",
                                     hasUpperCase: (value) => 
-                                        /[A-Z]/.test(value) || "Password must contain an uppercase letter"
+                                        /[A-Z]/.test(value) || "Password must contain an uppercase letter",
+                                    ifError: () => {
+                                        if(!error){
+                                            return "Invalid credentials";
+                                        }
                                 }
-                            }}
+                            }}}
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
