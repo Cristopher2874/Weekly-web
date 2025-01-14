@@ -30,25 +30,15 @@ const items = [
         icon: Home,
     },
     {
-        title: "New Patient",
-        url: "home/new-patient",
+        title: "New Pet",
+        url: "./new-pet",
         icon: Cat,
     },
     {
-        title: "Appointments",
-        url: "home/patients",
-        icon: Calendar,
-    },
-    {
-        title: "Patients",
-        url: "home/patients",
+        title: "My Pets",
+        url: "./pets",
         icon: Book,
-    },
-    {
-        title: "Settings",
-        url: "#",
-        icon: Settings,
-    },
+    }
 ]
 
 export function AppSidebar() {
@@ -82,10 +72,10 @@ export function AppSidebar() {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <Link to={`${item.url}`}>
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

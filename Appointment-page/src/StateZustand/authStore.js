@@ -47,6 +47,22 @@ export const useAuthStore = create(
             })),
             getUser: (email) => get().users.find((user) => user.email === email),
         })
-    ), {
+    ),{
     name: 'auth-storage'
+})
+
+export const usePetStore = create(
+    persist(
+        (set, get) => ({
+            petName: "",
+            setPetName: (pet) => set({ pet }),
+            petSpecies: "",
+            setPetSpecies: (species) => set({ species }),
+            petRace: "",
+            setPetRace: (race) => set({ race }),
+            comments: "",
+            setComments: (comm) => set({ comm })
+        })
+    ),{
+    name: 'pet-store'
 })

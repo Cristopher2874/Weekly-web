@@ -5,6 +5,8 @@ import ProfileForm from '@custom/RegisterForm';
 import LayoutHome from '@layout/LayoutHome';
 import Dashboard from '@custom/Dashboard';
 import UserData from '@custom/UserData';
+import PetsData from '@custom/PetsPage'
+import PetForm from '@custom/registerPet';
 
 const App = createBrowserRouter([
   {
@@ -30,8 +32,16 @@ const App = createBrowserRouter([
         element: <Dashboard />
       },
       {
-        path: 'patients',
+        path: 'user',
         element: <UserData />
+      },
+      {
+        path: 'pets',
+        element: <PetsData />,
+      },
+      {
+        path: 'new-pet',
+        element: <PetForm />,
       }
     ]
   }

@@ -75,6 +75,10 @@ export function UserPopOver() {
                     <CommandList>
                         <CommandEmpty>No framework found.</CommandEmpty>
                         <CommandGroup>
+                            <Link to="./user" className="w-full flex items-center shadow border bg-white gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
+                                <LogOut className="h-5 w-5 text-gray-500" />
+                                <span className="text-gray-700">My data</span>
+                            </Link>
                             {frameworks.map((framework) => (
                                 <CommandItem
                                     key={framework.value}

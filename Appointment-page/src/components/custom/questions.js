@@ -1,4 +1,4 @@
-export const questions1 = [
+export const userQuestions = [
     {
         id: 1,
         key: "name",
@@ -92,54 +92,57 @@ export const questions1 = [
     }
 ];
 
-export const questions2 = [
+export const petQuestions = [
     {
         id: 1,
+        key: "name",
         type: "text",
-        label: "Work",
-        placeholder: "Where do you work?",
-        required: true
+        label: "Name",
+        placeholder: "Enter your pet's name",
+        rules: {
+            required: "Name of pet is required",
+            minLength: {
+                value: 3,
+                message: "Name must be at least 3 characters"
+            },
+        }
     },
     {
-        id: 2,
+        id: 1,
+        key: "species",
+        type: "text",
+        label: "Species",
+        placeholder: "Enter your pet's species",
+        rules: {
+            required: "Species of pet is required",
+            minLength: {
+                value: 3,
+                message: "Species must be at least 3 characters"
+            },
+        }
+    },
+    {
+        id: 1,
+        key: "race",
+        type: "text",
+        label: "Race",
+        placeholder: "Enter your pet's race",
+        rules: {
+            required: "Race of pet is required",
+            minLength: {
+                value: 3,
+                message: "Race must be at least 3 characters"
+            },
+        }
+    },
+    {
+        id: 1,
+        key: "comments",
         type: "textarea",
-        label: "Reasons",
-        placeholder: "Why do you want to join?",
-        required: true
+        label: "Extra comments for threatement",
+        placeholder: "Allergies, color, operations...",
+        rules: {
+            required: false,
+        }
     },
-    {
-        id: 3,
-        type: "select",
-        label: "Positions",
-        options: [
-            "Male",
-            "Female",
-            "Other"
-        ],
-        required: true
-    },
-    {
-        id: 4,
-        type: "radio",
-        label: "Options",
-        options: [
-            "Online",
-            "Friends",
-            "Marketing",
-            "Others"
-        ],
-        required: true
-    },
-    {
-        id: 5,
-        type: "checkbox",
-        label: "Example",
-        options: [
-            "Tech",
-            "sports",
-            "Music",
-            "Travel"
-        ],
-        required: false
-    }
 ];

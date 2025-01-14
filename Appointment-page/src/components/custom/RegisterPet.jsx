@@ -10,7 +10,7 @@ import {
     FormMessage,
 } from "@shad/form"
 import { Input } from "@shad/input"
-import { userQuestions } from "@custom/questions"
+import { petQuestions } from "@custom/questions"
 import { Textarea } from "@shad/textarea"
 import {
     Select,
@@ -20,18 +20,15 @@ import {
     SelectValue,
 } from "@shad/select"
 import { RadioGroup, RadioGroupItem } from "@shad/radio-group"
-import { useAuthStore } from "@/StateZustand/authStore"
+import { usePetStore } from "@/StateZustand/authStore"
 
-const ProfileForm = () => {
-    const setUsers = useAuthStore((state) => state.setUsers);
+const PetForm = () => {
     const form = useForm({
         defaultValues: {
             name: "",
-            email: "",
-            phone: "",
-            password: "",
-            gender: "",
-            source: "",
+            species: "",
+            race: "",
+            comments: ""
         }
     });
 
@@ -52,7 +49,7 @@ const ProfileForm = () => {
         <div className="m-8 w-full flex justify-center items-center bg-gradient-to-b from-gray-200 to-gray-100 rounded-lg shadow-lg py-8">
             <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-lg w-4/5">
-                    {userQuestions.map((question) => (
+                    {petQuestions.map((question) => (
                         <FormField
                             key={question.id}
                             control={form.control}
@@ -64,7 +61,7 @@ const ProfileForm = () => {
                                 <FormItem>
                                     <FormLabel>{question.label}</FormLabel>
                                     <FormControl>
-                                        {question.type === "text" || question.type === "email" ? (
+                                        {question.type === "text" ? (
                                             <Input
                                                 type={question.type}
                                                 placeholder={question.placeholder}
@@ -144,4 +141,4 @@ const ProfileForm = () => {
     );
 }
 
-export default ProfileForm;
+export default PetForm;
