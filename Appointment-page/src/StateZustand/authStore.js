@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 function userAuth(users, user, password) {
     if (!Array.isArray(users)) {
@@ -46,23 +46,37 @@ export const useAuthStore = create(
                 users: addUsers(state.users, user),
             })),
             getUser: (email) => get().users.find((user) => user.email === email),
+            clearUsers: () => set({ users:[] })
         })
     ),{
     name: 'auth-storage'
 })
 
+function addPet(pets, pet) {
+    if (!Array.isArray(pets)) {
+        pets = [];
+    }
+    
+    const petExists = pets.findIndex((newpet) => newpet.name === pet.name && newpet.owner === pet.owner);
+
+    if (petExists >= 0) {
+        return [...pets];
+    } else {
+        return [...pets, pet];
+    }
+};
+
 export const usePetStore = create(
     persist(
         (set, get) => ({
-            petName: "",
-            setPetName: (pet) => set({ pet }),
-            petSpecies: "",
-            setPetSpecies: (species) => set({ species }),
-            petRace: "",
-            setPetRace: (race) => set({ race }),
-            comments: "",
-            setComments: (comm) => set({ comm })
+            pets: [],
+            setPets: (pets) => set({ pets }),
+            getPets: (owner) => get().pets.filter((pet) => pet.owner === owner),
+            clearPets: () => set({ pets:[] }),
+            addPet: (pet) => set((state) => ({
+                pets: addPet(state.pets, pet),
+            })),
         })
     ),{
-    name: 'pet-store'
+        name: 'pet-storage',
 })

@@ -108,7 +108,7 @@ export const petQuestions = [
         }
     },
     {
-        id: 1,
+        id: 2,
         key: "species",
         type: "text",
         label: "Species",
@@ -122,7 +122,7 @@ export const petQuestions = [
         }
     },
     {
-        id: 1,
+        id: 3,
         key: "race",
         type: "text",
         label: "Race",
@@ -136,7 +136,7 @@ export const petQuestions = [
         }
     },
     {
-        id: 1,
+        id: 4,
         key: "comments",
         type: "textarea",
         label: "Extra comments for threatement",

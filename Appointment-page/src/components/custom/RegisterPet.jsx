@@ -12,29 +12,27 @@ import {
 import { Input } from "@shad/input"
 import { petQuestions } from "@custom/questions"
 import { Textarea } from "@shad/textarea"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@shad/select"
-import { RadioGroup, RadioGroupItem } from "@shad/radio-group"
 import { usePetStore } from "@/StateZustand/authStore"
+import { useAuthStore } from "@/StateZustand/authStore";
 
 const PetForm = () => {
+    const addPet = usePetStore((state) => state.addPet);
+    const user = useAuthStore((state) => state.user);
+    const currentUser = useAuthStore((state) => state.getUser(user));
+
     const form = useForm({
         defaultValues: {
             name: "",
             species: "",
             race: "",
-            comments: ""
+            comments: "",
+            owner: currentUser.name ? currentUser.name : "",
         }
     });
 
     function onSubmit(data) {
-        console.log(data);
-        setUsers(data);
+        data.owner = currentUser.name ? currentUser.name : "";
+        addPet(data);
     }
 
     // Save form data to localStorage when fields change
@@ -46,7 +44,7 @@ const PetForm = () => {
     };
 
     return (
-        <div className="m-8 w-full flex justify-center items-center bg-gradient-to-b from-gray-200 to-gray-100 rounded-lg shadow-lg py-8">
+        <div className="m-8 flex justify-center items-center bg-gradient-to-b from-gray-200 to-gray-100 rounded-lg shadow-lg py-8">
             <Form {...form} >
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-lg w-4/5">
                     {petQuestions.map((question) => (
@@ -80,50 +78,6 @@ const PetForm = () => {
                                                     onValueChange(field.name, e.target.value);
                                                 }}
                                             />
-                                        ) : question.type === "select" ? (
-                                            <Select onValueChange={(value) => {
-                                                field.onChange(value);
-                                                onValueChange(field.name, value);
-                                            }}
-                                                value={field.value}>
-                                                <FormControl>
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Select gender" />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent>
-                                                    {question.options.map((option, index) => (
-                                                        <SelectItem key={index} value={option}>{option}</SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                        ) : question.type === "radio" ? (
-                                            <RadioGroup
-                                                onValueChange={(value) => {
-                                                    field.onChange(value);
-                                                    onValueChange(field.name, value);
-                                                }}
-                                                value={field.value}
-                                                className="flex flex-col space-y-1"
-                                            >
-                                                {question.options.map((option, index) => (
-                                                    <FormItem key={index} className="flex items-center space-x-3 space-y-0">
-                                                        <FormControl>
-                                                            <RadioGroupItem
-                                                                value={option}
-                                                                id={`${field.name}-${index}`}
-                                                                className={field.value === option ? 'bg-black p-2 focus:ring-2' : 'bg-white p-2 border-gray-400'}
-                                                            />
-                                                        </FormControl>
-                                                        <FormLabel htmlFor={`${field.name}-${index}`} className="font-normal">
-                                                            {option}
-                                                        </FormLabel>
-                                                    </FormItem>
-                                                ))}
-                                            </RadioGroup>
-                                        ) : question.type === "checkbox" ? (
-                                            <>
-                                            </>
                                         ) : null}
                                     </FormControl>
                                     <FormDescription>

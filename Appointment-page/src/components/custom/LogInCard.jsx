@@ -8,7 +8,6 @@ import {
 } from "@shad/card"
 import { Input } from "@shad/input"
 import { Button } from "@shad/button"
-import { Label } from "@shad/label"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthStore } from "@/StateZustand/authStore"
 import {

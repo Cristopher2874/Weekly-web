@@ -51,6 +51,10 @@ export function UserPopOver() {
     const [value, setValue] = useState("")
     const setUser = useAuthStore((state) => state.setUser);
 
+    const handleLogOut = () => {
+        setUser(null);
+    };
+
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -97,7 +101,7 @@ export function UserPopOver() {
                                     {framework.label}
                                 </CommandItem>
                             ))}
-                            <Link to="/" className="w-full flex items-center shadow border bg-white gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
+                            <Link to="/" onClick={() => handleLogOut()} className="w-full flex items-center shadow border bg-white gap-2 px-4 py-2 hover:bg-gray-100 transition-colors">
                                 <LogOut className="h-5 w-5 text-gray-500" />
                                 <span className="text-gray-700">Log Out</span>
                             </Link>
